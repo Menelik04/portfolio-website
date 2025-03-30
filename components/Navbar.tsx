@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import Link from 'next/link';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { motion } from 'framer-motion';
@@ -6,8 +6,21 @@ import { motion } from 'framer-motion';
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const scrollToSection = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    if (href.startsWith('/#')) {
+      const element = document.querySelector(href.substring(1));
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      window.location.href = href;
+    }
+    setIsOpen(false);
+  }, []);
+
   const navigation = [
-    { name: 'Home', href: '/' },
+    { name: 'Home', href: '/#home' },
     { name: 'About', href: '/#about' },
     { name: 'Projects', href: '/#projects' },
     { name: 'Testimonials', href: '/#testimonials' },
@@ -29,9 +42,13 @@ const Navbar = () => {
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.2 }}
           >
-            <Link href="/" className="text-2xl font-bold text-primary">
+            <a 
+              href="/#home" 
+              className="text-2xl font-bold text-primary"
+              onClick={(e) => scrollToSection(e, '/#home')}
+            >
               Menelik
-            </Link>
+            </a>
           </motion.div>
           
           {/* Desktop menu */}
@@ -42,53 +59,55 @@ const Navbar = () => {
                 whileHover={{ scale: 1.1 }}
                 transition={{ duration: 0.2 }}
               >
-                <Link
+                <a
                   href={item.href}
                   className="text-dimWhite hover:text-white transition-colors"
+                  onClick={(e) => scrollToSection(e, item.href)}
                 >
                   {item.name}
-                </Link>
+                </a>
               </motion.div>
             ))}
           </div>
 
           {/* Mobile menu button */}
-          <div className="flex items-center md:hidden">
-            <motion.button
+          <div className="md:hidden flex items-center">
+            <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-dimWhite hover:text-white"
-              whileTap={{ scale: 0.95 }}
+              className="text-white hover:text-primary"
             >
               {isOpen ? (
                 <XMarkIcon className="h-6 w-6" />
               ) : (
                 <Bars3Icon className="h-6 w-6" />
               )}
-            </motion.button>
+            </button>
           </div>
         </div>
       </div>
 
       {/* Mobile menu */}
-      <motion.div 
-        className={`md:hidden ${isOpen ? 'block' : 'hidden'}`}
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: isOpen ? 1 : 0, y: isOpen ? 0 : -20 }}
-        transition={{ duration: 0.2 }}
-      >
-        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-background-light">
-          {navigation.map((item) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              className="block px-3 py-2 text-dimWhite hover:text-white transition-colors"
-              onClick={() => setIsOpen(false)}
-            >
-              {item.name}
-            </Link>
-          ))}
-        </div>
-      </motion.div>
+      {isOpen && (
+        <motion.div 
+          className="md:hidden"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.2 }}
+        >
+          <div className="px-2 pt-2 pb-3 space-y-1">
+            {navigation.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                className="block px-3 py-2 text-base font-medium text-dimWhite hover:text-white hover:bg-background-light rounded-md"
+                onClick={(e) => scrollToSection(e, item.href)}
+              >
+                {item.name}
+              </a>
+            ))}
+          </div>
+        </motion.div>
+      )}
     </motion.nav>
   );
 };

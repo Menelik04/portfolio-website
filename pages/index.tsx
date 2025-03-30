@@ -92,6 +92,7 @@ export default function Home() {
 
       {/* Hero Section */}
       <motion.section 
+        id="home"
         className="min-h-screen flex items-center justify-center relative overflow-hidden"
         initial="initial"
         animate="animate"
@@ -156,7 +157,12 @@ export default function Home() {
       </motion.section>
 
       {/* About Section */}
-      <About />
+      <motion.section 
+        id="about"
+        className="py-20"
+      >
+        <About />
+      </motion.section>
 
       {/* Skills Section */}
       <section id="skills" className="py-20">
@@ -173,11 +179,14 @@ export default function Home() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-20 bg-background-light">
+      <motion.section 
+        id="projects"
+        className="py-20 bg-background-light"
+      >
         <div className="container mx-auto px-4">
           <ProjectShowcase />
         </div>
-      </section>
+      </motion.section>
 
       {/* GitHub Activity Section */}
       <section id="github" className="py-20">
@@ -188,7 +197,12 @@ export default function Home() {
       </section>
 
       {/* Testimonials Section */}
-      <Testimonials />
+      <motion.section 
+        id="testimonials"
+        className="py-20"
+      >
+        <Testimonials />
+      </motion.section>
 
       {/* Blog Section */}
       <section id="blog" className="py-20 bg-background-light">
@@ -198,7 +212,10 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20">
+      <motion.section 
+        id="contact"
+        className="py-20"
+      >
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -245,7 +262,7 @@ export default function Home() {
             </div>
           </div>
         </motion.div>
-      </section>
+      </motion.section>
     </Layout>
   );
 }
