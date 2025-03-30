@@ -84,7 +84,7 @@ const PROJECTS: Project[] = [
     },
     demoUrl: '#',
     githubUrl: 'https://github.com/menelikgete/ecommerce-platform',
-    image: 'https://raw.githubusercontent.com/Menelik04/portfolio-website/main/public/images/projects/ecommerce.jpg'
+    image: '/images/projects/e-commerce.png'
   },
   {
     id: '2',
@@ -98,7 +98,7 @@ const PROJECTS: Project[] = [
     },
     demoUrl: '#',
     githubUrl: 'https://github.com/menelikgete/fitness-app',
-    image: 'https://raw.githubusercontent.com/Menelik04/portfolio-website/main/public/images/projects/fitness.jpg'
+    image: '/images/projects/Fitness.png'
   },
   {
     id: '3',
@@ -112,7 +112,7 @@ const PROJECTS: Project[] = [
     },
     demoUrl: '#',
     githubUrl: 'https://github.com/menelikgete/network-dashboard',
-    image: 'https://raw.githubusercontent.com/Menelik04/portfolio-website/main/public/images/projects/network.jpg'
+    image: '/images/projects/Network.png'
   }
 ];
 
@@ -150,20 +150,23 @@ function ProjectCard({ project }: { project: Project }) {
 
   return (
     <motion.div
-      className="bg-background-light rounded-xl overflow-hidden shadow-lg"
+      className="bg-background-light rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300"
       layoutId={`project-${project.id}`}
       onClick={() => setIsExpanded(!isExpanded)}
       whileHover={{ scale: 1.02 }}
       transition={{ duration: 0.3 }}
     >
       {!imageError && project.image && (
-        <div className="relative h-48 overflow-hidden">
+        <div className="relative h-48 overflow-hidden group">
           <img
             src={project.image}
             alt={project.title}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
             onError={() => setImageError(true)}
           />
+          <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+            <p className="text-white text-lg font-semibold">Click to expand</p>
+          </div>
         </div>
       )}
       <div className="p-6 space-y-4">

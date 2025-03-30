@@ -27,13 +27,13 @@ const socialLinks = [
   {
     name: 'GitHub',
     icon: FaGithub,
-    url: 'https://github.com/menelik04',
+    url: 'https://github.com/Menelik04',
     color: 'hover:text-gray-100'
   },
   {
     name: 'LinkedIn',
     icon: FaLinkedin,
-    url: 'https://linkedin.com/in/menelik-gete',
+    url: 'https://www.linkedin.com/in/menelik-gete-8b555826a/',
     color: 'hover:text-blue-400'
   },
   {
@@ -45,14 +45,8 @@ const socialLinks = [
   {
     name: 'Instagram',
     icon: FaInstagram,
-    url: 'https://instagram.com/menelik_gete',
+    url: 'https://www.instagram.com/menelik0427/',
     color: 'hover:text-pink-500'
-  },
-  {
-    name: 'Medium',
-    icon: FaMedium,
-    url: 'https://medium.com/@menelikgete',
-    color: 'hover:text-gray-100'
   }
 ];
 
