@@ -10,9 +10,9 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <>
       <Head>
-        <title>Your Name - Portfolio</title>
+        <title>Menelik - Portfolio</title>
         <meta name="description" content="Professional portfolio showcasing my work and experience" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👨‍💻</text></svg>" />
       </Head>
       <div className="min-h-screen bg-background text-white">
         <Navbar />

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Chart } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -10,8 +9,10 @@ import {
   Title,
   Tooltip,
   Legend,
-  ChartData
+  ChartData,
+  ChartOptions
 } from 'chart.js';
+import { Line } from 'react-chartjs-2';
 
 ChartJS.register(
   CategoryScale,
@@ -22,6 +23,38 @@ ChartJS.register(
   Tooltip,
   Legend
 );
+
+const chartOptions: ChartOptions<'line'> = {
+  responsive: true,
+  scales: {
+    y: {
+      type: 'linear',
+      beginAtZero: true,
+      grid: {
+        color: 'rgba(255, 255, 255, 0.1)'
+      },
+      ticks: {
+        color: 'rgba(255, 255, 255, 0.7)'
+      }
+    },
+    x: {
+      type: 'category',
+      grid: {
+        color: 'rgba(255, 255, 255, 0.1)'
+      },
+      ticks: {
+        color: 'rgba(255, 255, 255, 0.7)'
+      }
+    }
+  },
+  plugins: {
+    legend: {
+      labels: {
+        color: 'rgba(255, 255, 255, 0.7)'
+      }
+    }
+  }
+};
 
 interface Project {
   id: string;
@@ -92,49 +125,21 @@ function ProjectMetrics({ metrics }: { metrics: Project['metrics'] }) {
         data: metrics.users,
         borderColor: '#0070f3',
         tension: 0.4,
+        fill: false
       },
       {
         label: 'Performance Score',
         data: metrics.performance,
         borderColor: '#10b981',
         tension: 0.4,
+        fill: false
       }
     ]
   };
 
-  const options = {
-    responsive: true,
-    scales: {
-      y: {
-        beginAtZero: true,
-        grid: {
-          color: 'rgba(255, 255, 255, 0.1)'
-        },
-        ticks: {
-          color: 'rgba(255, 255, 255, 0.7)'
-        }
-      },
-      x: {
-        grid: {
-          color: 'rgba(255, 255, 255, 0.1)'
-        },
-        ticks: {
-          color: 'rgba(255, 255, 255, 0.7)'
-        }
-      }
-    },
-    plugins: {
-      legend: {
-        labels: {
-          color: 'rgba(255, 255, 255, 0.7)'
-        }
-      }
-    }
-  };
-
   return (
     <div className="bg-background-light p-4 rounded-lg">
-      <Chart type="line" data={chartData} options={options} />
+      <Line data={chartData} options={chartOptions} />
     </div>
   );
 }
