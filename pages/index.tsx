@@ -1,5 +1,5 @@
 import Layout from '../components/Layout';
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { TypeAnimation } from 'react-type-animation';
 import SkillsGlobe from '../components/SkillsGlobe';
@@ -10,10 +10,9 @@ import About from '../components/About';
 import Testimonials from '../components/Testimonials';
 import { FaGithub, FaLinkedin, FaTwitter, FaInstagram, FaMedium } from 'react-icons/fa';
 
-const fadeInUp = {
+const fadeInUp: Variants = {
   initial: { opacity: 0, y: 60 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6 }
+  animate: { opacity: 1, y: 0 }
 };
 
 const stagger = {
