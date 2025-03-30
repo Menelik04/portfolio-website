@@ -49,9 +49,9 @@ const PROJECTS: Project[] = [
       performance: [95, 96, 97, 98, 99, 99.5],
       dates: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
     },
-    demoUrl: '#', // Temporarily disabled
+    demoUrl: '#',
     githubUrl: 'https://github.com/menelikgete/ecommerce-platform',
-    image: '/images/projects/ecommerce.png'
+    image: 'https://raw.githubusercontent.com/Menelik04/portfolio-website/main/public/images/projects/ecommerce.jpg'
   },
   {
     id: '2',
@@ -63,9 +63,9 @@ const PROJECTS: Project[] = [
       performance: [94, 95, 96, 97, 98, 99],
       dates: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
     },
-    demoUrl: '#', // Temporarily disabled
+    demoUrl: '#',
     githubUrl: 'https://github.com/menelikgete/fitness-app',
-    image: '/images/projects/fitness.png'
+    image: 'https://raw.githubusercontent.com/Menelik04/portfolio-website/main/public/images/projects/fitness.jpg'
   },
   {
     id: '3',
@@ -77,9 +77,9 @@ const PROJECTS: Project[] = [
       performance: [96, 97, 97.5, 98, 98.5, 99],
       dates: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
     },
-    demoUrl: '#', // Temporarily disabled
+    demoUrl: '#',
     githubUrl: 'https://github.com/menelikgete/network-dashboard',
-    image: '/images/projects/network.png'
+    image: 'https://raw.githubusercontent.com/Menelik04/portfolio-website/main/public/images/projects/network.jpg'
   }
 ];
 
@@ -141,15 +141,26 @@ function ProjectMetrics({ metrics }: { metrics: Project['metrics'] }) {
 
 function ProjectCard({ project }: { project: Project }) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
   return (
     <motion.div
-      className="bg-background-light rounded-xl overflow-hidden"
+      className="bg-background-light rounded-xl overflow-hidden shadow-lg"
       layoutId={`project-${project.id}`}
       onClick={() => setIsExpanded(!isExpanded)}
       whileHover={{ scale: 1.02 }}
       transition={{ duration: 0.3 }}
     >
+      {!imageError && project.image && (
+        <div className="relative h-48 overflow-hidden">
+          <img
+            src={project.image}
+            alt={project.title}
+            className="w-full h-full object-cover"
+            onError={() => setImageError(true)}
+          />
+        </div>
+      )}
       <div className="p-6 space-y-4">
         <h3 className="text-2xl font-bold text-white">{project.title}</h3>
         <p className="text-dimWhite">{project.description}</p>
