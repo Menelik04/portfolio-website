@@ -49,7 +49,7 @@ const PROJECTS: Project[] = [
       performance: [95, 96, 97, 98, 99, 99.5],
       dates: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
     },
-    demoUrl: 'https://ecommerce-demo.example.com',
+    demoUrl: '#', // Temporarily disabled
     githubUrl: 'https://github.com/menelikgete/ecommerce-platform',
     image: '/images/projects/ecommerce.png'
   },
@@ -63,7 +63,7 @@ const PROJECTS: Project[] = [
       performance: [94, 95, 96, 97, 98, 99],
       dates: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
     },
-    demoUrl: 'https://fitness-app.example.com',
+    demoUrl: '#', // Temporarily disabled
     githubUrl: 'https://github.com/menelikgete/fitness-app',
     image: '/images/projects/fitness.png'
   },
@@ -77,7 +77,7 @@ const PROJECTS: Project[] = [
       performance: [96, 97, 97.5, 98, 98.5, 99],
       dates: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
     },
-    demoUrl: 'https://network-dashboard.example.com',
+    demoUrl: '#', // Temporarily disabled
     githubUrl: 'https://github.com/menelikgete/network-dashboard',
     image: '/images/projects/network.png'
   }
@@ -174,15 +174,17 @@ function ProjectCard({ project }: { project: Project }) {
           <ProjectMetrics metrics={project.metrics} />
           
           <div className="flex gap-4">
-            <a
-              href={project.demoUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-primary text-white px-6 py-2 rounded-full hover:bg-blue-600 transition-colors"
-              onClick={(e) => e.stopPropagation()}
-            >
-              Live Demo
-            </a>
+            {project.demoUrl !== '#' && (
+              <a
+                href={project.demoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-primary text-white px-6 py-2 rounded-full hover:bg-blue-600 transition-colors"
+                onClick={(e) => e.stopPropagation()}
+              >
+                Live Demo
+              </a>
+            )}
             <a
               href={project.githubUrl}
               target="_blank"
