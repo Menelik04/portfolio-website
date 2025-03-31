@@ -15,7 +15,7 @@ interface Testimonial {
 const testimonials: Testimonial[] = [
   {
     id: 1,
-    name: "John Smith",
+    name: "Haymanot Asmare",
     role: "CTO",
     company: "Tech Innovations Inc.",
     image: "/images/testimonials/john.jpg",
@@ -24,7 +24,7 @@ const testimonials: Testimonial[] = [
   },
   {
     id: 2,
-    name: "Sarah Johnson",
+    name: "Sarah Tekle",
     role: "Product Manager",
     company: "Digital Solutions Ltd.",
     image: "/images/testimonials/sarah.jpg",
@@ -33,7 +33,7 @@ const testimonials: Testimonial[] = [
   },
   {
     id: 3,
-    name: "Michael Chen",
+    name: "Michael Chane",
     role: "Startup Founder",
     company: "InnovateTech",
     image: "/images/testimonials/michael.jpg",

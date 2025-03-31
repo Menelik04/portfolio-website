@@ -84,7 +84,7 @@ const PROJECTS: Project[] = [
     },
     demoUrl: '#',
     githubUrl: 'https://github.com/menelikgete/ecommerce-platform',
-    image: '/images/projects/e-commerce.png'
+    image: '/images/projects/e-commerce.jpg'
   },
   {
     id: '2',
@@ -98,7 +98,7 @@ const PROJECTS: Project[] = [
     },
     demoUrl: '#',
     githubUrl: 'https://github.com/menelikgete/fitness-app',
-    image: '/images/projects/Fitness.png'
+    image: '/images/projects/Fitness.jpg'
   },
   {
     id: '3',
@@ -112,7 +112,7 @@ const PROJECTS: Project[] = [
     },
     demoUrl: '#',
     githubUrl: 'https://github.com/menelikgete/network-dashboard',
-    image: '/images/projects/Network.png'
+    image: '/images/projects/Network.jpg'
   }
 ];
 
@@ -138,7 +138,7 @@ function ProjectMetrics({ metrics }: { metrics: Project['metrics'] }) {
   };
 
   return (
-    <div className="bg-background-light p-4 rounded-lg">
+    <div className="bg-background-light p-2 md:p-4 rounded-lg w-full min-w-[300px]">
       <Line data={chartData} options={chartOptions} />
     </div>
   );
@@ -157,7 +157,7 @@ function ProjectCard({ project }: { project: Project }) {
       transition={{ duration: 0.3 }}
     >
       {!imageError && project.image && (
-        <div className="relative h-48 overflow-hidden group">
+        <div className="relative h-48 sm:h-56 md:h-64 overflow-hidden group">
           <img
             src={project.image}
             alt={project.title}
@@ -169,15 +169,15 @@ function ProjectCard({ project }: { project: Project }) {
           </div>
         </div>
       )}
-      <div className="p-6 space-y-4">
-        <h3 className="text-2xl font-bold text-white">{project.title}</h3>
-        <p className="text-dimWhite">{project.description}</p>
+      <div className="p-4 md:p-6 space-y-3 md:space-y-4">
+        <h3 className="text-xl md:text-2xl font-bold text-white">{project.title}</h3>
+        <p className="text-sm md:text-base text-dimWhite">{project.description}</p>
         
         <div className="flex flex-wrap gap-2">
           {project.technologies.map(tech => (
             <span
               key={tech}
-              className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full"
+              className="px-2 py-1 md:px-3 md:py-1 text-xs md:text-sm bg-primary/10 text-primary rounded-full"
             >
               {tech}
             </span>
@@ -190,15 +190,17 @@ function ProjectCard({ project }: { project: Project }) {
           transition={{ duration: 0.3 }}
           className="space-y-4"
         >
-          <ProjectMetrics metrics={project.metrics} />
+          <div className="w-full overflow-x-auto">
+            <ProjectMetrics metrics={project.metrics} />
+          </div>
           
-          <div className="flex gap-4">
+          <div className="flex flex-wrap gap-3">
             {project.demoUrl !== '#' && (
               <a
                 href={project.demoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-primary text-white px-6 py-2 rounded-full hover:bg-blue-600 transition-colors"
+                className="bg-primary text-white px-4 md:px-6 py-2 rounded-full hover:bg-blue-600 transition-colors text-sm md:text-base"
                 onClick={(e) => e.stopPropagation()}
               >
                 Live Demo
@@ -208,7 +210,7 @@ function ProjectCard({ project }: { project: Project }) {
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-gray-700 text-white px-6 py-2 rounded-full hover:bg-gray-600 transition-colors"
+              className="bg-gray-700 text-white px-4 md:px-6 py-2 rounded-full hover:bg-gray-600 transition-colors text-sm md:text-base"
               onClick={(e) => e.stopPropagation()}
             >
               View Code

@@ -1,114 +1,80 @@
-import { useState, useCallback } from 'react';
-import Link from 'next/link';
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { FaBars, FaTimes } from 'react-icons/fa';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const scrollToSection = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
-    if (href.startsWith('/#')) {
-      const element = document.querySelector(href.substring(1));
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    } else {
-      window.location.href = href;
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      setIsOpen(false); // Close mobile menu after clicking
     }
-    setIsOpen(false);
-  }, []);
-
-  const navigation = [
-    { name: 'Home', href: '/#home' },
-    { name: 'About', href: '/#about' },
-    { name: 'Projects', href: '/#projects' },
-    { name: 'Testimonials', href: '/#testimonials' },
-    { name: 'Blog', href: '/blog' },
-    { name: 'Contact', href: '/#contact' },
-  ];
+  };
 
   return (
-    <motion.nav 
-      className="bg-background-light backdrop-blur-sm sticky top-0 z-50"
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <motion.div 
-            className="flex items-center"
+    <nav className="fixed top-0 left-0 right-0 bg-background/80 backdrop-blur-sm z-50 py-4">
+      <div className="container mx-auto px-4">
+        <div className="flex justify-between items-center">
+          <motion.a
+            href="#home"
+            className="text-2xl font-bold text-white"
             whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.2 }}
+            onClick={(e) => handleScroll(e, 'home')}
           >
-            <a 
-              href="/#home" 
-              className="text-2xl font-bold text-primary"
-              onClick={(e) => scrollToSection(e, '/#home')}
-            >
-              Menelik
-            </a>
-          </motion.div>
-          
-          {/* Desktop menu */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navigation.map((item) => (
-              <motion.div
-                key={item.name}
-                whileHover={{ scale: 1.1 }}
-                transition={{ duration: 0.2 }}
-              >
-                <a
-                  href={item.href}
-                  className="text-dimWhite hover:text-white transition-colors"
-                  onClick={(e) => scrollToSection(e, item.href)}
-                >
-                  {item.name}
-                </a>
-              </motion.div>
-            ))}
-          </div>
+            Menelik
+          </motion.a>
 
           {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-white hover:text-primary"
-            >
-              {isOpen ? (
-                <XMarkIcon className="h-6 w-6" />
-              ) : (
-                <Bars3Icon className="h-6 w-6" />
-              )}
-            </button>
-          </div>
-        </div>
-      </div>
+          <button
+            className="md:hidden text-white p-2"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle menu"
+          >
+            {isOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
+          </button>
 
-      {/* Mobile menu */}
-      {isOpen && (
-        <motion.div 
-          className="md:hidden"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.2 }}
-        >
-          <div className="px-2 pt-2 pb-3 space-y-1">
-            {navigation.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="block px-3 py-2 text-base font-medium text-dimWhite hover:text-white hover:bg-background-light rounded-md"
-                onClick={(e) => scrollToSection(e, item.href)}
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex space-x-8">
+            {['home', 'about', 'projects', 'testimonials', 'contact'].map((item) => (
+              <motion.a
+                key={item}
+                href={`#${item}`}
+                className="text-gray-300 hover:text-white capitalize"
+                whileHover={{ scale: 1.05 }}
+                onClick={(e) => handleScroll(e, item)}
               >
-                {item.name}
-              </a>
+                {item}
+              </motion.a>
             ))}
           </div>
-        </motion.div>
-      )}
-    </motion.nav>
+
+          {/* Mobile Navigation */}
+          <motion.div
+            className={`${
+              isOpen ? 'flex' : 'hidden'
+            } md:hidden absolute top-full left-0 right-0 bg-background/95 backdrop-blur-sm flex-col items-center py-4 space-y-4`}
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: isOpen ? 1 : 0, y: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            {['home', 'about', 'projects', 'testimonials', 'contact'].map((item) => (
+              <motion.a
+                key={item}
+                href={`#${item}`}
+                className="text-gray-300 hover:text-white capitalize w-full text-center py-2"
+                whileHover={{ scale: 1.05 }}
+                onClick={(e) => handleScroll(e, item)}
+              >
+                {item}
+              </motion.a>
+            ))}
+          </motion.div>
+        </div>
+      </div>
+    </nav>
   );
 };
 
