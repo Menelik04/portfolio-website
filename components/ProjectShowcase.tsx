@@ -137,9 +137,28 @@ function ProjectMetrics({ metrics }: { metrics: Project['metrics'] }) {
     ]
   };
 
+  const responsiveOptions: ChartOptions<'line'> = {
+    ...chartOptions,
+    maintainAspectRatio: false,
+    responsive: true,
+    scales: {
+      ...chartOptions.scales,
+      x: {
+        ...chartOptions.scales?.x,
+        ticks: {
+          ...chartOptions.scales?.x?.ticks,
+          maxRotation: 45,
+          minRotation: 45
+        }
+      }
+    }
+  };
+
   return (
-    <div className="bg-background-light p-2 md:p-4 rounded-lg w-full min-w-[300px]">
-      <Line data={chartData} options={chartOptions} />
+    <div className="bg-background-light p-2 sm:p-4 rounded-lg w-full">
+      <div style={{ height: '300px' }}>
+        <Line data={chartData} options={responsiveOptions} />
+      </div>
     </div>
   );
 }
@@ -150,7 +169,7 @@ function ProjectCard({ project }: { project: Project }) {
 
   return (
     <motion.div
-      className="bg-background-light rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300"
+      className="bg-background-light rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 w-full"
       layoutId={`project-${project.id}`}
       onClick={() => setIsExpanded(!isExpanded)}
       whileHover={{ scale: 1.02 }}
@@ -169,15 +188,15 @@ function ProjectCard({ project }: { project: Project }) {
           </div>
         </div>
       )}
-      <div className="p-4 md:p-6 space-y-3 md:space-y-4">
-        <h3 className="text-xl md:text-2xl font-bold text-white">{project.title}</h3>
-        <p className="text-sm md:text-base text-dimWhite">{project.description}</p>
+      <div className="p-4 sm:p-6 space-y-3 sm:space-y-4">
+        <h3 className="text-xl sm:text-2xl font-bold text-white">{project.title}</h3>
+        <p className="text-sm sm:text-base text-dimWhite">{project.description}</p>
         
         <div className="flex flex-wrap gap-2">
           {project.technologies.map(tech => (
             <span
               key={tech}
-              className="px-2 py-1 md:px-3 md:py-1 text-xs md:text-sm bg-primary/10 text-primary rounded-full"
+              className="px-2 py-1 sm:px-3 sm:py-1 text-xs sm:text-sm bg-primary/10 text-primary rounded-full"
             >
               {tech}
             </span>
@@ -188,10 +207,12 @@ function ProjectCard({ project }: { project: Project }) {
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: isExpanded ? 1 : 0, height: isExpanded ? 'auto' : 0 }}
           transition={{ duration: 0.3 }}
-          className="space-y-4"
+          className="space-y-4 overflow-hidden"
         >
-          <div className="w-full overflow-x-auto">
-            <ProjectMetrics metrics={project.metrics} />
+          <div className="w-full overflow-x-auto -mx-4 px-4">
+            <div className="min-w-[300px]">
+              <ProjectMetrics metrics={project.metrics} />
+            </div>
           </div>
           
           <div className="flex flex-wrap gap-3">
@@ -200,7 +221,7 @@ function ProjectCard({ project }: { project: Project }) {
                 href={project.demoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-primary text-white px-4 md:px-6 py-2 rounded-full hover:bg-blue-600 transition-colors text-sm md:text-base"
+                className="bg-primary text-white px-4 sm:px-6 py-2 rounded-full hover:bg-blue-600 transition-colors text-sm sm:text-base flex-1 sm:flex-none text-center"
                 onClick={(e) => e.stopPropagation()}
               >
                 Live Demo
@@ -210,7 +231,7 @@ function ProjectCard({ project }: { project: Project }) {
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-gray-700 text-white px-4 md:px-6 py-2 rounded-full hover:bg-gray-600 transition-colors text-sm md:text-base"
+              className="bg-gray-700 text-white px-4 sm:px-6 py-2 rounded-full hover:bg-gray-600 transition-colors text-sm sm:text-base flex-1 sm:flex-none text-center"
               onClick={(e) => e.stopPropagation()}
             >
               View Code
